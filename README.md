@@ -13,7 +13,7 @@
 
 
 ### Demo Instructions
-- The demo of using the npm package is present in `frontend_new` folder.
+- The demo of using the npm package is present in `frontend_demo` folder.
 - To run the demo follow these instructions:
 ```
 cd frontend_new
