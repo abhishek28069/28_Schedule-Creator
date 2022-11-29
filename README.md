@@ -4,7 +4,7 @@
 ### Library Installation
 - To use our npm package `schedule_creator_ssd_team_28` these are the instructions
   ```
-  npm install schedule_creator)ssd_team_28
+  npm install schedule_creator_ssd_team_28
   ```
   
 ### Library Usage
