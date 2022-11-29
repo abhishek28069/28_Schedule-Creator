@@ -2,7 +2,7 @@
 ## Team 28 : Schedule Creator
 
 ### Library Installation
-- To use our npm package `schedule_creator_ssd_team_28` these are the instructions
+- To use our npm package [schedule_creator_ssd_team_28](https://www.npmjs.com/package/schedule_creator_ssd_team_28) these are the instructions
   ```
   npm install schedule_creator_ssd_team_28
   ```
