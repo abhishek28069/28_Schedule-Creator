@@ -1,7 +1,13 @@
 let schedule = [];
 
-const insertRow = (firstCell, secondCell, thirdCell) => {
+const insertRow = (firstCell, secondCell, thirdCell, noon) => {
   const myTable = document.getElementById("scheduleTable");
+  if (noon != "") {
+    var row = myTable.insertRow();
+    var cell = row.insertCell(0);
+    cell.colSpan = 3;
+    cell.innerHTML = noon;
+  }
   var row = myTable.insertRow();
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
@@ -138,6 +144,8 @@ function get_schedule(schedule, start_time, one_event_duration, total_break_time
   let out_str = "";
   let start_str = "";
   let end_str = "";
+  let noon = "";
+  let first = false;
 
   for (let i = 0; i < schedule.length; i++) {
     out_str = "";
@@ -155,6 +163,42 @@ function get_schedule(schedule, start_time, one_event_duration, total_break_time
     }
     out_str += current_hour + ":" + curr_min_str + " " + period + "-";
     start_str += current_hour + ":" + curr_min_str + " " + period;
+
+    if(current_hour < 12 && period == "AM") {
+      if(noon == "Morning Events") {
+        first = false;
+      }
+      else {
+        noon = "Morning Events"
+        first = true;
+      }
+      
+    } else if((current_hour == 12 && period == "PM") || (current_hour < 4 && period == "PM")) {
+      if(noon == "Afternoon Events") {
+        first = false;
+      }
+      else {
+        noon = "Afternoon Events"
+        first = true;
+      }
+    } else if(current_hour < 8 && period == "PM") {
+      if(noon == "Evening Events") {
+        first = false;
+      }
+      else {
+        noon = "Evening Events"
+        first = true;
+      }
+    } else {
+      if(noon == "Night Events") {
+        first = false;
+      }
+      else {
+        noon = "Night Events"
+        first = true;
+      }
+    }
+
 
     if (schedule[i] == "E") {
       current_minutes += one_event_duration;
@@ -185,7 +229,7 @@ function get_schedule(schedule, start_time, one_event_duration, total_break_time
     }
     out_str += current_hour + ":" + curr_min_str + " " + period;
     end_str += current_hour + ":" + curr_min_str + " " + period;
-    insertRow(schedule[i] === "E" ? "Event" : "Break", start_str, end_str);
+    insertRow(schedule[i] === "E" ? "Event" : "Break", start_str, end_str, first ? noon : "");
     console.log(out_str);
   }
 }
