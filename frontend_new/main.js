@@ -37,8 +37,14 @@ const takeInput = () => {
   return { start_time, end_time, no_events, breaks };
 };
 
-const insertRow = (firstCell, secondCell, thirdCell) => {
+const insertRow = (firstCell, secondCell, thirdCell, noon) => {
   const myTable = document.getElementById("scheduleTable");
+  if (noon != "") {
+    var row = myTable.insertRow();
+    var cell = row.insertCell(0);
+    cell.colSpan = 3;
+    cell.innerHTML = noon;
+  }
   var row = myTable.insertRow();
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);

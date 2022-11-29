@@ -52,6 +52,7 @@ const get_schedule = (event_type, start_time, one_event_duration, total_break_ti
   let curr_min_str = "";
   let start_str = "";
   let end_str = "";
+  let noon = "";
   //defining return variable
   let schedule;
   if (output_format == "json") {
@@ -69,6 +70,16 @@ const get_schedule = (event_type, start_time, one_event_duration, total_break_ti
       curr_min_str = current_minutes.toString();
     }
     start_str += current_hour + ":" + curr_min_str + " " + period;
+
+    if(current_hour < 12 && period == "AM") {
+      noon = "Morning Events"
+    } else if((current_hour == 12 && period == "PM") || (current_hour < 4 && period == "PM")) {
+      noon = "Afternoon Events"
+    } else if(current_hour < 8 && period == "PM") {
+      noon = "Evening Events"
+    } else {
+      noon = "Night Events"
+    }
 
     if (event_type[i] == "E") {
       current_minutes += one_event_duration;
@@ -101,7 +112,7 @@ const get_schedule = (event_type, start_time, one_event_duration, total_break_ti
 
     if (output_format == "json") {
       let type = event_type[i] === "E" ? "Event" : "Break";
-      schedule.push({ type: type, start_time: start_str, end_time: end_str });
+      schedule.push({ type: type, start_time: start_str, end_time: end_str, desc_time: noon });
     } else if (output_format == "csv") {
       let type = event_type[i] === "E" ? "Event" : "Break";
       schedule += type + "," + start_str + "," + end_str + "\n";
