@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule Creater</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="left">
+        <h1>Schedule</h1>
+        <div class="pad">
+          <table class="table" id="scheduleTable">
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="right">
+        <div class="column">
+          <div>
+            <div>
+              <label for="start">Start Time: </label>
+              <input type="time" name="start" id="start" required />
+            </div>
+            <div>
+              <label for="end">End Time: </label>
+              <input type="time" name="end" id="end" required />
+            </div>
+            <div>
+              <label for="events">No of Events: </label>
+              <input type="number" name="events" id="events" required />
+            </div>
+            <div>
+              <label for="breaks">No of Breaks: </label>
+              <input type="number" name="breaks" id="breaks" required />
+            </div>
+          </div>
+          <div class="group">
+            <div class="buttons-group">
+              <button id="schedule">Schedule</button>
+            </div>
+            <div class="buttons-group">
+              <button id="edit" onclick="edit()">Edit</button>
+              <button id="edit" onclick="save()">Save</button>
+            </div>
+            <div class="buttons-group">
+              <button id="download" onclick="tableToCSV()">Download CSV</button>
+              <button id="download" onclick="tableToCSV()">Download JSON</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
