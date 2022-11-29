@@ -1,6 +1,6 @@
 {
   "name": "schedule_creator_ssd_team_28",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Schedule creator with autokmated output based on start_time,end_time,no_events",
   "main": "index.js",
   "scripts": {

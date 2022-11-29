@@ -39,7 +39,7 @@ const takeInput = () => {
 
 const insertRow = (firstCell, secondCell, thirdCell, noon) => {
   const myTable = document.getElementById("scheduleTable");
-  if (noon != "") {
+  if (noon !== "") {
     var row = myTable.insertRow();
     var cell = row.insertCell(0);
     cell.colSpan = 3;
@@ -67,9 +67,21 @@ const displayTable = (data) => {
   cell1.outerHTML = "<th>Schedule</th>";
   cell2.outerHTML = "<th>Start</th>";
   cell3.outerHTML = "<th>End</th>";
-  data.forEach((element) => {
-    insertRow(element.type, element.start_time, element.end_time);
-  });
+  let noon = "";
+  for (let i = 0; i < data.length; i++) {
+    let currentNoon = data[i].desc_time;
+    if (i === 0) {
+      insertRow(data[i].type, data[i].start_time, data[i].end_time, currentNoon);
+    } else if (noon === currentNoon) {
+      insertRow(data[i].type, data[i].start_time, data[i].end_time, "");
+    } else {
+      insertRow(data[i].type, data[i].start_time, data[i].end_time, currentNoon);
+    }
+    noon = currentNoon;
+  }
+  // data.forEach((element) => {
+  //   insertRow(element.type, element.start_time, element.end_time);
+  // });
   if (document.getElementsByClassName("margin").length === 0)
     document.getElementsByClassName("pad")[0].insertAdjacentHTML("afterend", '<div class="margin"></div>');
 };
