@@ -1,0 +1,11 @@
+{
+  "name": "schedule_creator_ssd_team_28",
+  "version": "1.0.3",
+  "description": "Schedule creator with autokmated output based on start_time,end_time,no_events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "abhishek",
+  "license": "ISC"
+}
