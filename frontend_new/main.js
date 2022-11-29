@@ -17,6 +17,9 @@ const convertTime = (t) => {
 };
 
 const takeInput = () => {
+  const myDate = document.getElementById("schedule_date");
+  const myName = document.getElementById("schedule_name");
+  console.log(myDate.value);
   const myStart = document.getElementById("start");
   const myEnd = document.getElementById("end");
   const myEvents = document.getElementById("events");
@@ -25,6 +28,8 @@ const takeInput = () => {
   let end_time = convertTime(myEnd.value);
   let no_events = parseInt(myEvents.value);
   let breaks = parseInt(myBreaks.value);
+  let name = myName.value === "" ? "Schedule" : myName.value;
+  let date = myDate.value;
   // const myTable = document.getElementById("scheduleTable");
   // myTable.innerHTML = "";
   // var row = myTable.insertRow();
@@ -34,11 +39,11 @@ const takeInput = () => {
   // cell1.outerHTML = "<th>Schedule</th>";
   // cell2.outerHTML = "<th>Start</th>";
   // cell3.outerHTML = "<th>End</th>";
-  return { start_time, end_time, no_events, breaks };
+  return { start_time, end_time, no_events, breaks, name, date };
 };
 
-const insertRow = (firstCell, secondCell, thirdCell, noon) => {
-  const myTable = document.getElementById("scheduleTable");
+const insertRow = (table, firstCell, secondCell, thirdCell, noon) => {
+  const myTable = table;
   if (noon !== "") {
     var row = myTable.insertRow();
     var cell = row.insertCell(0);
@@ -58,8 +63,15 @@ const insertRow = (firstCell, secondCell, thirdCell, noon) => {
 };
 
 const displayTable = (data) => {
-  const myTable = document.getElementById("scheduleTable");
-  myTable.innerHTML = "";
+  const myTable = document.createElement("table");
+  const myParent = document.getElementsByClassName("pad")[0];
+  myParent.insertAdjacentHTML("beforeend", `<h2 class="heading_date">${data[0]}</h2>`);
+  myParent.appendChild(myTable);
+  myTable.className = "table";
+  // myTable.id = `scheduletable${data[0]}`;
+  if (document.getElementById("heading_name").innerHTML === "Schedule") {
+    document.getElementById("heading_name").innerHTML = data[1];
+  }
   var row = myTable.insertRow();
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
@@ -68,14 +80,14 @@ const displayTable = (data) => {
   cell2.outerHTML = "<th>Start</th>";
   cell3.outerHTML = "<th>End</th>";
   let noon = "";
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 2; i < data.length; i++) {
     let currentNoon = data[i].desc_time;
     if (i === 0) {
-      insertRow(data[i].type, data[i].start_time, data[i].end_time, currentNoon);
+      insertRow(myTable, data[i].type, data[i].start_time, data[i].end_time, currentNoon);
     } else if (noon === currentNoon) {
-      insertRow(data[i].type, data[i].start_time, data[i].end_time, "");
+      insertRow(myTable, data[i].type, data[i].start_time, data[i].end_time, "");
     } else {
-      insertRow(data[i].type, data[i].start_time, data[i].end_time, currentNoon);
+      insertRow(myTable, data[i].type, data[i].start_time, data[i].end_time, currentNoon);
     }
     noon = currentNoon;
   }
@@ -88,11 +100,16 @@ const displayTable = (data) => {
 
 //handler functions
 const main = () => {
-  let { start_time, end_time, no_events, breaks } = takeInput();
-  scheduleJSON = create_schedule(start_time, end_time, no_events, breaks, "json");
-  scheduleCSV = create_schedule(start_time, end_time, no_events, breaks, "csv");
+  let { start_time, end_time, no_events, breaks, name, date } = takeInput();
+  scheduleJSON.push(create_schedule({ start_time, end_time, no_events, breaks, output_format: "json", schedule_name: name, schedule_date: date }));
+  scheduleCSV +=
+    name +
+    "\n" +
+    date +
+    "\n" +
+    create_schedule({ start_time, end_time, no_events, breaks, output_format: "csv", schedule_name: name, schedule_date: date });
   console.log(scheduleCSV, scheduleJSON);
-  displayTable(scheduleJSON);
+  displayTable(scheduleJSON[scheduleJSON.length - 1]);
 };
 
 const edit = () => {
@@ -162,3 +179,12 @@ document.getElementById("downloadCSV").addEventListener("click", () => downloadC
 document.getElementById("downloadJSON").addEventListener("click", () => downloadJSON(scheduleJSON));
 document.getElementById("edit").addEventListener("click", edit);
 document.getElementById("save").addEventListener("click", save);
+
+{
+  /* <h2 id="heading_date"></h2>
+          <table class="table" id="scheduleTable">
+            <tbody>
+             
+            </tbody>
+          </table> */
+}

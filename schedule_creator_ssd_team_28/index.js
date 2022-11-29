@@ -42,7 +42,7 @@ const get_total_duration = (start, end) => {
   return duration;
 };
 
-const get_schedule = (event_type, start_time, one_event_duration, total_break_time, breaks, output_format) => {
+const get_schedule = (event_type, start_time, one_event_duration, total_break_time, breaks, output_format, schedule_name, schedule_date) => {
   let one_break_time = Math.floor(total_break_time / breaks);
   let last_break_time = total_break_time - one_break_time * (breaks - 1);
   let break_count = 1;
@@ -71,14 +71,14 @@ const get_schedule = (event_type, start_time, one_event_duration, total_break_ti
     }
     start_str += current_hour + ":" + curr_min_str + " " + period;
 
-    if(current_hour < 12 && period == "AM") {
-      noon = "Morning Events"
-    } else if((current_hour == 12 && period == "PM") || (current_hour < 4 && period == "PM")) {
-      noon = "Afternoon Events"
-    } else if(current_hour < 8 && period == "PM") {
-      noon = "Evening Events"
+    if (current_hour < 12 && period == "AM") {
+      noon = "Morning Events";
+    } else if ((current_hour == 12 && period == "PM") || (current_hour < 4 && period == "PM")) {
+      noon = "Afternoon Events";
+    } else if (current_hour < 8 && period == "PM") {
+      noon = "Evening Events";
     } else {
-      noon = "Night Events"
+      noon = "Night Events";
     }
 
     if (event_type[i] == "E") {
@@ -118,17 +118,20 @@ const get_schedule = (event_type, start_time, one_event_duration, total_break_ti
       schedule += type + "," + start_str + "," + end_str + "\n";
     }
   }
-  // if (output_format == "json") {
-  //   schedule.unshift(schedule_name);
-  //   schedule.unshift(schedule_date);
-  // } else if (output_format == "csv") {
-  //   schedule = schedule_name + "\n" + schedule_date + "\n" + schedule;
-  // }
+  if (output_format == "json") {
+    schedule.unshift(schedule_name);
+    schedule.unshift(schedule_date);
+  }
   return schedule;
 };
 
-exports.create_schedule = (start_time, end_time, no_events, breaks, output_format = "json") => {
+exports.create_schedule = ({ start_time, end_time, no_events, breaks, output_format, schedule_name, schedule_date }) => {
+  //checking arguments
+  output_format = output_format === undefined ? "json" : output_format;
+  schedule_name = schedule_name === undefined ? "Schedule" : schedule_name;
+  schedule_date = schedule_date === undefined ? new Date().getDate() + "/" + new Date().getMonth() + "/" + new Date().getFullYear() : schedule_date;
   // start_time and end_time of format HH:MM AM/PM
+  //schedule_date format is d/m/y
   // no_events and breaks is of type int
   let total_duration = get_total_duration(start_time, end_time);
   let one_event_duration = Math.floor(total_duration / (no_events + 1));
@@ -154,7 +157,7 @@ exports.create_schedule = (start_time, end_time, no_events, breaks, output_forma
   while (no_events--) {
     event_type.push("E");
   }
-  return get_schedule(event_type, start_time, one_event_duration, total_break_time, breaks, output_format);
+  return get_schedule(event_type, start_time, one_event_duration, total_break_time, breaks, output_format, schedule_name, schedule_date);
 };
 
 // console.log(create_schedule("08:00 AM", "05:00 PM", 10, 4, "json"));

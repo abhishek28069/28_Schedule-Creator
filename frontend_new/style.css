@@ -37,6 +37,10 @@ button:hover {
   scale: 1.01;
 }
 
+.heading_date {
+  padding: 1rem;
+}
+
 .group {
   display: flex;
   flex-direction: column;
@@ -56,6 +60,10 @@ input {
   border-radius: 0.5rem;
   padding: 0.3rem 0.5rem;
   color: black;
+}
+
+input#schedule_date {
+  padding: 2px;
 }
 
 .app {

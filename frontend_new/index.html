@@ -11,16 +11,20 @@
   <body>
     <div class="app">
       <div class="left">
-        <h1>Schedule</h1>
-        <div class="pad">
-          <table class="table" id="scheduleTable">
-            <tbody></tbody>
-          </table>
-        </div>
+        <h1 id="heading_name">Schedule</h1>
+        <div class="pad"></div>
       </div>
       <div class="right">
         <div class="column">
           <div>
+            <div>
+              <label for="schedule_name">Schedule Name: </label>
+              <input type="text" name="schedule_name" id="schedule_name" placeholder="Enter name" required />
+            </div>
+            <div>
+              <label for="schedule_date">Schedule Date: </label>
+              <input type="date" name="schedule_date" id="schedule_date" required />
+            </div>
             <div>
               <label for="start">Start Time: </label>
               <input type="time" name="start" id="start" required />
