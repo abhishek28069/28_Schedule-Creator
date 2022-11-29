@@ -21,6 +21,9 @@ npm install
 npm run dev
 ```
 
+### Demo Website
+- [Website Link](https://28-schedule-creator.vercel.app/)
+
 ### Demo Video 
 - [Video link](https://iiitaphyd-my.sharepoint.com/:v:/g/personal/abhishek_gaddam_students_iiit_ac_in/ERPRfaL49Y1Plfr0HavUglMBSw31Ux1yg-kHDNF4Nt04TA?e=xcsGje)
 
