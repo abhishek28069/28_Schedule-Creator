@@ -20,3 +20,7 @@ cd frontend_new
 npm install
 npm run dev
 ```
+
+### Demo Video 
+- [Video link](https://iiitaphyd-my.sharepoint.com/:v:/g/personal/abhishek_gaddam_students_iiit_ac_in/ERPRfaL49Y1Plfr0HavUglMBSw31Ux1yg-kHDNF4Nt04TA?e=xcsGje)
+
